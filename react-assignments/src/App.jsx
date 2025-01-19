@@ -1,4 +1,5 @@
 import "./App.css";
+import PersonDetails from "./Components/Person";
 
 function App() {
   const person = {
@@ -12,11 +13,13 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="container">
       <header>
-        <h1>This is React</h1>
+        <h1>Personal Details</h1>
       </header>
-      {/* TODO create a child component in proper jsx, the component takes the person object as props and render the data */}
+      {/* TODO create a child component in proper jsx, the component takes the person object
+       as props and render the data */}
+      <PersonDetails person={person} />
     </div>
   );
 }
