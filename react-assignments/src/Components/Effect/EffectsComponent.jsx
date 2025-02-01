@@ -7,41 +7,23 @@ import MyStateComponent from "../MyStateComponent/MyStateComponent";
 // - use the useState hook to store the data
 // - display the data in a list
 function EffectsComponent() {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [showMystate, setShowMystate] = useState(false);
+  const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
-    fetch("https://thronesapi.com/api/v2/Characters")
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data);
-        console.log(data);
-      })
-      .catch((error) => console.error("Error fetching data:", error.message))
-      .finally(() => setIsLoading(false));
+    fetch('https://thronesapi.com/api/v2/Characters')
+      .then(response => response.json())
+      .then(data => setCharacters(data))
+      .catch(error => console.error('Error fetching data:', error));
   }, []);
-
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
 
   return (
     <div>
-      <button onClick={() => setShowMystate(!showMystate)}>Toggle View</button>
-      <h1>Effects Component</h1>
-      {showMystate ? (
-        <MyStateComponent />
-      ) : (
-        <ul className="characterList">
-          {data.map((character) => (
-            <li key={character.id} className="character">
-              {character.fullName} - {character.title}
-              <img src={character.imageUrl} alt={character.fullName} />
-            </li>
-          ))}
-        </ul>
-      )}
+      <h1>Game of Thrones Characters</h1>
+      <ul>
+        {characters.map(character => (
+          <li key={character.id}>{character.fullName}</li>
+        ))}
+      </ul>
     </div>
   );
 }
